@@ -953,6 +953,213 @@ Send XCP or a user defined asset.
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
 
+###mpc_make_deposit
+
+Create deposit and setup initial payer state.
+
+**Parameters:**
+
+  * **asset (string):** Counterparty asset.
+  * **payer_pubkey (string):** Hex encoded public key in sec format.
+  * **payee_pubkey (string):** Hex encoded public key in sec format.
+  * **spend_secret_hash (string):** Hex encoded hash160 of spend secret.
+  * **expire_time (integer):** Channel expire time in blocks given as integer.
+  * **quantity (integer):** Asset quantity for deposit.
+
+    TODO add object docs and fix return doc
+
+    Returns:
+        {
+            "state": channel_state,
+            "topublish": unsigned_deposit_rawtx,
+            "deposit_script": hex_encoded
+        }
+
+
+###mpc_set_deposit
+
+Setup initial payee state for given deposit.
+
+**Parameters:**
+
+  * **asset (string):** Counterparty asset.
+  * **deposit_script (string):** Channel deposit p2sh script.
+  * **expected_payee_pubkey (string):** To validate deposit for payee.
+  * **expected_spend_secret_hash (string):** To validate deposit secret hash.
+
+    TODO add object docs and fix return doc
+
+    Returns: {"state": updated_state}
+
+
+###mpc_request_commit
+
+Request commit for given quantity and revoke secret hash.
+
+**Parameters:**
+
+  * **state (dict):** Current payee channel state.
+  * **quantity (integer):** Asset quantity for commit.
+  * **revoke_secret_hash (string):** Revoke secret hash for commit.
+
+    TODO add object docs and fix return doc
+
+    Returns:
+        {
+            "state": updated_channel_state,
+            "quantity": quantity,
+            "revoke_secret_hash": revoke_secret_hash
+        }
+
+
+###mpc_create_commit
+
+Create commit for given quantit, revoke secret hash and delay time.
+
+**Parameters:**
+
+  * **state (dict):** Current payer channel state.
+  * **quantity (integer):** Asset quantity for commit.
+  * **revoke_secret_hash (string):** Revoke secret hash for commit.
+  * **delay_time (integer):** Blocks payee must wait before payout.
+
+    TODO add object docs and fix return doc
+
+    Returns:
+        {
+            "state": updated_channel_state,
+            "commit_script": hex_encoded,
+            "tosign": {
+                "rawtx": unsigned_commit_rawtx,
+                "deposit_script": hex_encoded
+            }
+        }
+
+
+###mpc_add_commit
+
+Add commit to channel state.
+
+**Parameters:**
+
+  * **state (dict):** Current payee channel state.
+  * **commit_rawtx (string):** Commit transaction signed by payer.
+  * **commit_script (string):** Commit p2sh script.
+
+    TODO add object docs and fix return doc
+
+    Returns: {"state": updated_state}
+
+
+###mpc_revoke_secret_hashes_above
+
+Get revoke secret hashes for commits above the given quantity.
+
+**Parameters:**
+
+  * **state (dict):** Current payee channel state.
+  * **quantity (integer):** Return revoke secret hash if commit gt quantity.
+
+    TODO add object docs and fix return doc
+
+    Returns: List of hex encoded revoke secret hashes.
+
+
+###mpc_revoke_all
+
+Revoke all commits matching the given secrets.
+
+**Parameters:**
+
+  * **state (dict):** Current payee/payer channel state.
+  * **secrets (list):** List of hex encoded commit revoke secrets.
+
+    TODO add object docs and fix return doc
+
+    Returns: {"state": updated_state}
+
+
+###mpc_highest_commit
+
+Get highest commit be signed/published for closing the channel.
+
+**Parameters:**
+
+  * **state (dict):** Current payee channel state.
+
+    TODO add object docs and fix return doc
+
+    Returns:
+        If no commits have been made:
+            None
+
+        If commits have been made:
+            {
+                "commit_rawtx": half_signed_commit_rawtx,
+                "deposit_script": hex_encoded
+            }
+
+
+###mpc_transferred_amount
+
+Get asset quantity transferred from payer to payee.
+
+**Parameters:**
+
+  * **state (dict):** Current payee/payer channel state.
+
+    TODO add object docs and fix return doc
+
+    Returns:
+        Quantity transferred in satoshis.
+
+
+###mpc_payouts
+
+Find published commits and make payout transactions.
+
+**Parameters:**
+
+  * **state (dict):** Current payee channel state.
+
+    # TODO add object docs and fix return doc
+
+    Returns:
+        [{
+            "payout_rawtx": unsigned_rawtx,
+            "commit_script": hex_encoded
+        }]
+
+
+###mpc_recoverables
+
+Find and make recoverable change, timeout and revoke transactions.
+
+**Parameters:**
+
+  * **state (dict):** Current payee channel state.
+
+    TODO add object docs and fix return doc
+
+    Returns:
+        {
+            "change":[{
+                "change_rawtx": unsigned_rawtx,
+                "deposit_script": hex_encoded,
+                "spend_secret": hex_encoded
+            }],
+            "expire":[{
+                "expire_rawtx": unsigned_rawtx,
+                "deposit_script": hex_encoded
+            }],
+            "revoke":[{
+                "revoke_rawtx": unsigned_rawtx,
+                "commit_script": hex_encoded,
+                "revoke_secret": hex_encoded
+            }]
+        }
+
+
 ##REST API Function Reference
 
 The REST API documentation is hosted both on our webiste and on a new API documentation platform called apiary.io. This experimental documentation, complementary to the one in this document, is located [here](http://docs.counterpartylib.apiary.io/#).
