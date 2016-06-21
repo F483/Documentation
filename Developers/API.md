@@ -955,6 +955,8 @@ Send XCP or a user defined asset.
 
 ###mpc_make_deposit
 
+TODO add method prototype
+
 Create deposit and setup initial payer state.
 
 **Parameters:**
@@ -978,6 +980,8 @@ Create deposit and setup initial payer state.
 
 ###mpc_set_deposit
 
+TODO add method prototype
+
 Setup initial payee state for given deposit.
 
 **Parameters:**
@@ -993,6 +997,8 @@ Setup initial payee state for given deposit.
 
 
 ###mpc_request_commit
+
+TODO add method prototype
 
 Request commit for given quantity and revoke secret hash.
 
@@ -1013,6 +1019,8 @@ Request commit for given quantity and revoke secret hash.
 
 
 ###mpc_create_commit
+
+TODO add method prototype
 
 Create commit for given quantit, revoke secret hash and delay time.
 
@@ -1038,6 +1046,8 @@ Create commit for given quantit, revoke secret hash and delay time.
 
 ###mpc_add_commit
 
+TODO add method prototype
+
 Add commit to channel state.
 
 **Parameters:**
@@ -1053,6 +1063,8 @@ Add commit to channel state.
 
 ###mpc_revoke_secret_hashes_above
 
+TODO add method prototype
+
 Get revoke secret hashes for commits above the given quantity.
 
 **Parameters:**
@@ -1067,6 +1079,8 @@ Get revoke secret hashes for commits above the given quantity.
 
 ###mpc_revoke_all
 
+TODO add method prototype
+
 Revoke all commits matching the given secrets.
 
 **Parameters:**
@@ -1080,6 +1094,8 @@ Revoke all commits matching the given secrets.
 
 
 ###mpc_highest_commit
+
+TODO add method prototype
 
 Get highest commit be signed/published for closing the channel.
 
@@ -1102,6 +1118,8 @@ Get highest commit be signed/published for closing the channel.
 
 ###mpc_transferred_amount
 
+TODO add method prototype
+
 Get asset quantity transferred from payer to payee.
 
 **Parameters:**
@@ -1115,6 +1133,8 @@ Get asset quantity transferred from payer to payee.
 
 
 ###mpc_payouts
+
+TODO add method prototype
 
 Find published commits and make payout transactions.
 
@@ -1132,6 +1152,8 @@ Find published commits and make payout transactions.
 
 
 ###mpc_recoverables
+
+TODO add method prototype
 
 Find and make recoverable change, timeout and revoke transactions.
 
