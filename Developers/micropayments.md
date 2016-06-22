@@ -1,9 +1,11 @@
-# Protocol
+# Trustless micropayment channels ᕕ( ᐛ )ᕗ
+
+## Protocol
 
 ![micropayments](micropayments.png)
 
 
-## Deposit Transaction
+### Deposit Transaction
 
 The deposit transaction ensures the payee cannot spend the funds while
 the channel is open.
@@ -32,7 +34,7 @@ pay to script:
     OP_ENDIF
 
 
-## Expire Transaction
+### Expire Transaction
 
 The expire transaction is used by the payee to recover the and funds after
 the channel expires. This is to prevent funds being lost should the payee
@@ -45,7 +47,7 @@ script sig:
     # Example: 796637e788db8d3430ae48ec057ef493a871b7abc4711f9bb5f6148efc2212e7
 
 
-## Change Transaction
+### Change Transaction
 
 After the commit transaction has been published on the blockchain, the
 payee must reveal the spend secret to spend the committed funds. The payer
@@ -59,7 +61,7 @@ script sig:
     # Example: a6fdd23b2e5b1153cbd358c362456263531451b80ab4a597f7aa122cecc52703
 
 
-## Commit Transaction
+### Commit Transaction
 
 The commit transaction is used to transfer funds and prevent a race condition
 between the payee recovering the payout and the payer recovering the change.
@@ -94,7 +96,7 @@ pay to script:
     OP_ENDIF
 
 
-## Payout Transaction
+### Payout Transaction
 
 The payout transaction is used by the payee to spend the commited funds. In
 order to spend the funds the payee must reveal the spend secret, this ensures
@@ -110,7 +112,7 @@ script sig:
     # Example: 52a86445bf72b193cd351e2477cac9177d5c8fb4a637226b11811f7068e67fe8
 
 
-## Revoke Transaction
+### Revoke Transaction
 
 If the payee tries to publish a revoked commit transaction, the payer can
 recover the funds during the payout delay using the revolk secret.
