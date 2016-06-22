@@ -27,7 +27,7 @@ in the future. The REST API listens on the same port as JSON RPC one.
 ##Getting Started
 
 By default, the server will listen on port ``4000`` (if on mainnet) or port ``14000`` (on testnet) for API
-requests. 
+requests.
 
 Note that the main API is built on JSON-RPC 2.0, not 1.1. JSON-RPC itself is pretty lightweight, and API requests
 are made via a HTTP POST request to ``/api/`` (note the trailing slash), with JSON-encoded data passed as the POST body.
@@ -53,7 +53,7 @@ All requests must have POST data that is JSON encoded. Here's an example of the 
 
 The ``jsonrpc`` and ``id`` properties are requirements under the JSON-RPC 2.0 spec.
 
-You should note that the data in ``params`` is a JSON object (e.g. mapping), not an array. In other words, 
+You should note that the data in ``params`` is a JSON object (e.g. mapping), not an array. In other words,
 **the API only supports named arguments, not positional arguments** (e.g. use
 {"argument1": "value1", "argument2": "value2"} instead of ["value1", "value2"]). This is the case for safety and bug-minimization reasons.
 
@@ -75,7 +75,7 @@ if a password is set. **The default user is ``'rpc'``.**
 
 ##Example Implementations for JSON RPC API
 
-(Submissions for additional languages are welcome!) 
+(Submissions for additional languages are welcome!)
 
 The following examples have authentication enabled and the `user` set to its
 default value of `'rpc'`.
@@ -85,11 +85,11 @@ default value of `'rpc'`.
     import json
     import requests
     from requests.auth import HTTPBasicAuth
-    
+
     url = "http://localhost:4000/api/"
     headers = {'content-type': 'application/json'}
     auth = HTTPBasicAuth('rpc', PASSWORD)
-    
+
     payload = {
       "method": "get_running_info",
       "params": {},
@@ -111,11 +111,11 @@ library.
     use JsonRPC\Client;
     $client = new Client('http://localhost:4000/api/');
     $client->authentication('rpc', PASSWORD);
-    
+
     $result = $client->execute('get_balances', array('filters' => array('field' => 'address', 'op' => '==', 'value' => '1NFeBp9s5aQ1iZ26uWyiK2AYUXHxs7bFmB')));
     print("get_balances result:\n");
     var_dump($result);
-    
+
     $result2 = $client->execute('get_running_info');
     print("get_running_info result:\n");
     var_dump($result2);
@@ -125,7 +125,7 @@ library.
 
     curl -X POST http://127.0.0.1:4000/api/ --user rpc:$PASSWORD -H 'Content-Type: application/json; charset=UTF-8' -H 'Accept: application/json, text/javascript' --data-binary '{ "jsonrpc": "2.0", "id": 0, "method": "get_running_info" }'
 
-**NOTE:** 
+**NOTE:**
 * Remember to surround non-numeric parameter values with the double quotes, as per [JSON-RPC 2.0 examples](http://www.jsonrpc.org/specification#examples). For example, `"order_by": "tx_hash"` is correct and will work, `"order_by": 'tx_hash'` won't.
 * On Windows, curl commands may need to be formatted differently due to problems that Windows has with escapes. Try escapes before double quotes and reference curl help resources for additional details.
 
@@ -136,23 +136,23 @@ The following examples don't use authentication as with default settings.
 ###Python
 
     import requests
-    
+
     url = "http://localhost:4000/rest/"
     headers = {'content-type': 'application/json'}
 
     query = 'sends/get?source=mn6q3dS2EnDUx3bmyWc6D4szJNVGtaR7zc&destination=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns&op=AND'
-    
+
     response = requests.get(url + query, headers=headers)
     print("Response: ", response.text)
 
 
 ###curl
 
-    curl http://127.0.0.1:4000/rest/sends/get?source=mn6q3dS2EnDUx3bmyWc6D4szJNVGtaR7zc&destination=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns&op=AND -H 'Content-Type: application/json; charset=UTF-8' -H 'Accept: application/json' 
+    curl http://127.0.0.1:4000/rest/sends/get?source=mn6q3dS2EnDUx3bmyWc6D4szJNVGtaR7zc&destination=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns&op=AND -H 'Content-Type: application/json; charset=UTF-8' -H 'Accept: application/json'
 
 ###curl with POST encryption
 
-    curl -X POST http://127.0.0.1:4000/rest/sends/get?source=mn6q3dS2EnDUx3bmyWc6D4szJNVGtaR7zc&destination=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns&op=AND -H 'Content-Type: application/json; charset=UTF-8' -H 'Accept: application/json' 
+    curl -X POST http://127.0.0.1:4000/rest/sends/get?source=mn6q3dS2EnDUx3bmyWc6D4szJNVGtaR7zc&destination=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns&op=AND -H 'Content-Type: application/json; charset=UTF-8' -H 'Accept: application/json'
 
 ##Example Parameters
 
@@ -185,7 +185,7 @@ The following examples don't use authentication as with default settings.
                    "jsonrpc": "2.0",
                    "id": 0,
                   }
-    
+
 * Fetch all debits for > 2 XCP between blocks 280537 and 280539, sorting the results by quantity (descending order)
 
         payload = {
@@ -201,7 +201,7 @@ The following examples don't use authentication as with default settings.
                    "id": 0,
                   }
 
-    
+
 * Send 1 XCP (specified in satoshis) from one address to another.
 
         payload = {
@@ -215,7 +215,7 @@ The following examples don't use authentication as with default settings.
                    "jsonrpc": "2.0",
                    "id": 0,
                   }
-    
+
 * Issuance (indivisible)
 
         payload = {
@@ -352,7 +352,7 @@ Anywhere where an quantity is specified, it is specified in **satoshis** (if a d
 Examples:
 
 - 4381030000 = 43.8103 (if divisible asset)
-- 4381030000 = 4381030000 (if indivisible asset) 
+- 4381030000 = 4381030000 (if indivisible asset)
 
 **NOTE:** XCP and BTC themselves are divisible assets.
 
@@ -414,15 +414,15 @@ API call:
 
 This section documents any changes to the API, for version numbers where there were API-level modifications.
 
-There will be no incompatible API pushes that do not either have: 
+There will be no incompatible API pushes that do not either have:
 
-* A well known set cut over date in the future 
+* A well known set cut over date in the future
 * Or, a deprecation process where the old API is supported for an amount of time
 
 
 ###9.24.1
 
-**Summary:** New API parsing engine added, as well as dynamic get method composition in ``api.py``: 
+**Summary:** New API parsing engine added, as well as dynamic get method composition in ``api.py``:
 
 * Added ``sql`` API method
 * Filter params: Added ``LIKE``, ``NOT LIKE`` and ``IN``
@@ -446,7 +446,7 @@ There will be no incompatible API pushes that do not either have:
 
 ###9.32.0
 
-**Summary:** API framework overhaul for performance and simplicity 
+**Summary:** API framework overhaul for performance and simplicity
 
 * "/api" with no trailing slash no longer supported as an API endpoint (use "/" or "/api/" instead)
 * We now consistently reject positional arguments with all API methods. Make sure your API calls do not use positional
@@ -457,7 +457,7 @@ There will be no incompatible API pushes that do not either have:
 ###9.43.0
 
 * create_issuance: ``callable`` is also accepted
-* create_*: None is used as default value for missing parameters 
+* create_*: None is used as default value for missing parameters
 
 ###9.49.3
 
@@ -491,7 +491,7 @@ There will be no incompatible API pushes that do not either have:
 limit=1000, offset=0, show_expired=True)**
 
 **{table}** must be one of the following values:
-``balances``, ``credits``, ``debits``, ``bets``, ``bet_matches``, ``broadcasts``, ``btcpays``, ``burns``, 
+``balances``, ``credits``, ``debits``, ``bets``, ``bet_matches``, ``broadcasts``, ``btcpays``, ``burns``,
 ``cancels``, ``dividends``, ``issuances``, ``orders``, ``order_matches``, ``sends``,
 ``bet_expirations``, ``order_expirations``, ``bet_match_expirations``, or ``order_match_expirations``.
 
@@ -504,10 +504,10 @@ For example: ``get_balances``, ``get_credits``, ``get_debits``, etc are all vali
     be specified as well. See [filtering](#filtering-read-api-results) for more information.
   * **order_by  (string):** If sorted results are desired, specify the name of an attribute of the appropriate table to
     order the results by (e.g. ``quantity`` for [balance object](#balance-object), if you called ``get_balances``).
-    If left blank, the list of results will be returned unordered. 
+    If left blank, the list of results will be returned unordered.
   * **order_dir (string):** The direction of the ordering. Either ``ASC`` for ascending order, or ``DESC`` for descending
     order. Must be set if ``order_by`` is specified. Leave blank if ``order_by`` is not specified.
-  * **start_block (integer):** If specified, only results from the specified block index on will be returned 
+  * **start_block (integer):** If specified, only results from the specified block index on will be returned
   * **end_block (integer):** If specified, only results up to and including the specified block index on will be returned
   * **status (string/list):** return only results with the specified status or statuses (if a list of status strings is supplied).
     See the [status list](#status). Note that if ``null`` is supplied (the default), then status is not filtered.
@@ -574,11 +574,11 @@ Parse the data_hex of a message into its parameters. Currently only works with `
 
 
 
-###get_asset_info - Deprecated, use get_issuances() and get_supply() 
+###get_asset_info - Deprecated, use get_issuances() and get_supply()
 
 **get_issuances(assets)**
 
-Gets information on an issued asset. 
+Gets information on an issued asset.
 
 **get_supply(assets)**
 
@@ -590,8 +590,8 @@ Gets information on an issued asset.
 
   ``null`` if the asset was not found. Otherwise, a list of one or more objects, each one with the following parameters:
 
-  - **asset** (*string*): The [assets](#assets) of the asset itself 
-  - **owner** (*string*): The address that currently owns the asset (i.e. has issuance rights to it) 
+  - **asset** (*string*): The [assets](#assets) of the asset itself
+  - **owner** (*string*): The address that currently owns the asset (i.e. has issuance rights to it)
   - **divisible** (*boolean*): Whether the asset is divisible or not
   - **locked** (*boolean*): Whether the asset is locked (future issuances prohibited)
   - **total_issued** (*integer*): The [quantities](#quantities-and-balances) of the asset issued, in total
@@ -603,7 +603,7 @@ Gets information on an issued asset.
 
 **get_asset_names()**
 
-Returns a list of all existing Counterparty assets. 
+Returns a list of all existing Counterparty assets.
 
 **Parameters:** None
 
@@ -616,15 +616,15 @@ Returns a list of all existing Counterparty assets.
 
 **get_messages(block_index)**
 
-Return message feed activity for the specified block index. The message feed essentially tracks all 
+Return message feed activity for the specified block index. The message feed essentially tracks all
 database actions and allows for lower-level state tracking for applications that hook into it.
-   
+
 **Parameters:**
 
   * **block_index (integer):** The block index for which to retrieve activity.
 
-**Return:** 
-  
+**Return:**
+
   A list of one or more [message object](#message-object) if there was any activity in the block, otherwise ``[]`` (empty list).
 
 
@@ -633,12 +633,12 @@ database actions and allows for lower-level state tracking for applications that
 **get_messages_by_index(message_indexes)**
 
 Return the message feed messages whose ``message_index`` values are contained in the specified list of message indexes.
-   
+
 **Parameters:**
 
-  * **message_indexes (list)**: An array of one or more ``message_index`` values for which the cooresponding message feed entries are desired. 
+  * **message_indexes (list)**: An array of one or more ``message_index`` values for which the cooresponding message feed entries are desired.
 
-**Return:** 
+**Return:**
 
   A list containing a `message <#message-object>`_ for each message found in the specified ``message_indexes`` list. If none were found, ``[]`` (empty list) is returned.
 
@@ -654,7 +654,7 @@ destroyed via asset issuances, etc).
 
   None
 
-**Return:** 
+**Return:**
 
   The [quantities](#quantities-and-balances) of XCP currently in existance.
 
@@ -669,13 +669,13 @@ Gets some basic information on a specific block.
 
   * **block_index (integer)**: The block index for which to retrieve information.
 
-**Return:** 
+**Return:**
 
   If the block was found, an object with the following parameters:
-     
-  - **block_index** (*integer*): The block index (i.e. block height). Should match what was specified for the *block_index* input parameter). 
+
+  - **block_index** (*integer*): The block index (i.e. block height). Should match what was specified for the *block_index* input parameter).
   - **block_hash** (*string*): The block hash identifier
-  - **block_time** (*integer*): A UNIX timestamp of when the block was processed by the network 
+  - **block_time** (*integer*): A UNIX timestamp of when the block was processed by the network
 
 
 
@@ -696,7 +696,7 @@ is much quicker than using multiple ``get_block_info()`` and ``get_messages()`` 
   A list of objects, one object for each valid block index specified, in order from first block index to last.
   Each object has the following parameters:
 
-  - **block_index** (*integer*): The block index (i.e. block height). Should match what was specified for the *block_index* input parameter). 
+  - **block_index** (*integer*): The block index (i.e. block height). Should match what was specified for the *block_index* input parameter).
   - **block_hash** (*string*): The block hash identifier
   - **block_time** (*integer*): A UNIX timestamp of when the block was processed by the network
   - **_messages** (*list*): A list of one or more [message object](#message-object) if there was any activity in the block, otherwise ``[]`` (empty list).
@@ -712,7 +712,7 @@ Gets some operational parameters for the server.
 
   None
 
-**Return:** 
+**Return:**
 
   An object with the following parameters:
 
@@ -747,13 +747,13 @@ Issue a bet against a feed.
   * **expiration (integer, required):** The number of blocks after which the bet expires if it's still unmatched.
   * **target_value (float, default=None):** Target value for Equal/NotEqual bet
   * **leverage (integer, default=5040):** Leverage, as a fraction of 5040
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for the server to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for the server to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that the server uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
@@ -772,13 +772,13 @@ Broadcast textual and numerical information to the network.
   * **text (string, required):** The textual part of the broadcast.
   * **timestamp (integer, required):** The timestamp of the broadcast, in Unix time.
   * **value (float, required):** Numerical value of the broadcast.
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that ``counterpartyd`` uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
@@ -788,18 +788,18 @@ Broadcast textual and numerical information to the network.
 **create_btcpay(order_match_id, encoding='multisig', pubkey=null,
 allow_unconfirmed_inputs=false, fee=null, fee_per_kb=10000)**
 
-Create and (optionally) broadcast a BTCpay message, to settle an Order Match for which you owe BTC. 
+Create and (optionally) broadcast a BTCpay message, to settle an Order Match for which you owe BTC.
 
 **Parameters:**
 
   * **order_match_id (string, required):** The concatenation of the hashes of the two transactions which compose the order match.
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that ``counterpartyd`` uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
@@ -814,13 +814,13 @@ Burn a given quantity of BTC for XCP (**only possible between blocks 278310 and 
 
   * **source (string, required):** The address with the BTC to burn.
   * **quantity (integer, required):** The [quantities](#quantities-and-balances) of BTC to burn (1 BTC maximum burn per address).
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that ``counterpartyd`` uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
@@ -834,13 +834,13 @@ Cancel an open order or bet you created.
 **Parameters:**
 
   * **offer_hash (string, required):** The transaction hash of the order or bet.
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that ``counterpartyd`` uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
@@ -857,13 +857,13 @@ Issue a dividend on a specific user defined asset.
   * **asset (string, required):** The [assets](#assets) that the dividends are being rewarded on.
   * **dividend_asset (string, required):** The [assets](#assets) that the dividends are paid in.
   * **quantity_per_unit (integer, required):** The amount of **dividend_asset** rewarded.
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that ``counterpartyd`` uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
@@ -883,13 +883,13 @@ Issue a new asset, issue more of an existing asset, lock an asset, or transfer t
   * **divisible (boolean, default=True):** Whether this asset is divisible or not (if a transfer, this value must match the value specified when the asset was originally issued).
   * **description (string, default=''):** A textual description for the asset. 52 bytes max.
   * **transfer_destination (string, default=None):** The address to receive the asset (only used when *transferring* assets -- leave set to ``null`` if issuing an asset).
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that ``counterpartyd`` uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
@@ -917,14 +917,14 @@ Issue an order request.
   * **get_asset (string, required):** The [assets](#assets) requested in return.
   * **expiration (integer, required):** The number of blocks for which the order should be valid.
   * **fee_required (integer):** The miners' fee required to be paid by orders for them to match this one; in BTC; required only if buying BTC (may be zero, though). If not specified or set to ``null``, this defaults to 1% of the BTC desired for purchase.
-  * **fee_provided (integer):** The miners' fee provided; in BTC; required only if selling BTC (should not be lower than is required for acceptance in a block).  If not specified or set to ``null``, this defaults to 1% of the BTC for sale. 
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **fee_provided (integer):** The miners' fee provided; in BTC; required only if selling BTC (should not be lower than is required for acceptance in a block).  If not specified or set to ``null``, this defaults to 1% of the BTC for sale.
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that ``counterpartyd`` uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
@@ -941,21 +941,22 @@ Send XCP or a user defined asset.
   * **destination (string, required):** The address to receive the asset.
   * **quantity (integer, required):** The [quantities](#quantities-and-balances) of the asset to send.
   * **asset (string, required):** The [assets](#assets) to send.
-  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.  
+  * **encoding (string):** The encoding method to use, see [transaction encodings](#transaction-encodings) for more info.
   * **pubkey (string/list):** The hexadecimal public key of the source address (or a list of the keys, if multi‐sig). Required when using ``multisig`` and ``pubkeyhash`` transaction encodings. See [encoding parameter](#the-encoding-parameter-of-create-calls) for more info.
   * **allow_unconfirmed_inputs (boolean):** Set to ``true`` to allow this transaction to utilize unconfirmed UTXOs as inputs.
-  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose. 
+  * **fee (integer):** If you'd like to specify a custom miners' fee, specify it here (in satoshi). Leave as default for ``counterpartyd`` to automatically choose.
   * **fee_per_kb (integer):** The fee per kilobyte of transaction data constant that ``counterpartyd`` uses when deciding on the dynamic fee to use (in satoshi). Leave as default unless you know what you're doing.
   * **regular_dust_size (decimal):** Leave this out unless you know what you're doing! Used to specify the custom dust size. This option can be used to send BTC in addition to an asset send in a single transaction.
 
-**Return:** 
+**Return:**
 
   The unsigned transaction, as an hex-encoded string. See [transaction encodings](#transaction-encodings) for more information.
 
 
+
 ###mpc_make_deposit
 
-TODO add method prototype
+**mpc_make_deposit(asset, payer_pubkey, payee_pubkey, spend_secret_hash, expire_time, quantity)**
 
 Create deposit and setup initial payer state.
 
@@ -968,19 +969,15 @@ Create deposit and setup initial payer state.
   * **expire_time (integer):** Channel expire time in blocks given as integer.
   * **quantity (integer):** Asset quantity for deposit.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns:
-        {
-            "state": channel_state,
-            "topublish": unsigned_deposit_rawtx,
-            "deposit_script": hex_encoded
-        }
+  A [make deposit result object](#micropayment-make-deposit-result-object) containing the updated payer state, the deposit rawtx to sign and publish and the deposit p2sh script needed to spend the doposit funds.
+
 
 
 ###mpc_set_deposit
 
-TODO add method prototype
+**mpc_set_deposit(asset, deposit_script, expected_payee_pubkey, expected_spend_secret_hash)**
 
 Setup initial payee state for given deposit.
 
@@ -991,14 +988,15 @@ Setup initial payee state for given deposit.
   * **expected_payee_pubkey (string):** To validate deposit for payee.
   * **expected_spend_secret_hash (string):** To validate deposit secret hash.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns: {"state": updated_state}
+  Initial payee [micropayment state object](#micropayment-state-object).
+
 
 
 ###mpc_request_commit
 
-TODO add method prototype
+**mpc_request_commit(state, quantity, revoke_secret_hash)**
 
 Request commit for given quantity and revoke secret hash.
 
@@ -1008,19 +1006,15 @@ Request commit for given quantity and revoke secret hash.
   * **quantity (integer):** Asset quantity for commit.
   * **revoke_secret_hash (string):** Revoke secret hash for commit.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns:
-        {
-            "state": updated_channel_state,
-            "quantity": quantity,
-            "revoke_secret_hash": revoke_secret_hash
-        }
+  A [micropayment request commit result object](#micropayment-request-commit-result-object) with the updateds payee state and the given quantaty, revoke_secret_hash.
+
 
 
 ###mpc_create_commit
 
-TODO add method prototype
+**mpc_create_commit(state, quantity, revoke_secret_hash, delay_time)**
 
 Create commit for given quantit, revoke secret hash and delay time.
 
@@ -1031,22 +1025,15 @@ Create commit for given quantit, revoke secret hash and delay time.
   * **revoke_secret_hash (string):** Revoke secret hash for commit.
   * **delay_time (integer):** Blocks payee must wait before payout.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns:
-        {
-            "state": updated_channel_state,
-            "commit_script": hex_encoded,
-            "tosign": {
-                "rawtx": unsigned_commit_rawtx,
-                "deposit_script": hex_encoded
-            }
-        }
+  [micropayment create commit result object](#micropayment-create-commit-result-object) with the updateds payee state and the given quantaty, revoke_secret_hash.
+
 
 
 ###mpc_add_commit
 
-TODO add method prototype
+**mpc_add_commit(state, commit_rawtx, commit_script)**
 
 Add commit to channel state.
 
@@ -1056,14 +1043,15 @@ Add commit to channel state.
   * **commit_rawtx (string):** Commit transaction signed by payer.
   * **commit_script (string):** Commit p2sh script.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns: {"state": updated_state}
+  Updated payee [micropayment state object](#micropayment-state-object).
+
 
 
 ###mpc_revoke_secret_hashes_above
 
-TODO add method prototype
+**mpc_revoke_secret_hashes_above(state, quantity)**
 
 Get revoke secret hashes for commits above the given quantity.
 
@@ -1072,14 +1060,15 @@ Get revoke secret hashes for commits above the given quantity.
   * **state (dict):** Current payee channel state.
   * **quantity (integer):** Return revoke secret hash if commit gt quantity.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns: List of hex encoded revoke secret hashes.
+  List of hex encoded revoke secret hashes.
+
 
 
 ###mpc_revoke_all
 
-TODO add method prototype
+**mpc_revoke_all(state, secrets)**
 
 Revoke all commits matching the given secrets.
 
@@ -1088,14 +1077,14 @@ Revoke all commits matching the given secrets.
   * **state (dict):** Current payee/payer channel state.
   * **secrets (list):** List of hex encoded commit revoke secrets.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns: {"state": updated_state}
+  Updated [micropayment state object](#micropayment-state-object).
 
 
 ###mpc_highest_commit
 
-TODO add method prototype
+**mpc_highest_commit(state)**
 
 Get highest commit be signed/published for closing the channel.
 
@@ -1103,22 +1092,15 @@ Get highest commit be signed/published for closing the channel.
 
   * **state (dict):** Current payee channel state.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns:
-        If no commits have been made:
-            None
+  null if no commits made, otherwise [micropayment sign commit object](#micropayment-sign-commit-object).
 
-        If commits have been made:
-            {
-                "commit_rawtx": half_signed_commit_rawtx,
-                "deposit_script": hex_encoded
-            }
 
 
 ###mpc_transferred_amount
 
-TODO add method prototype
+**mpc_transferred_amount(state)**
 
 Get asset quantity transferred from payer to payee.
 
@@ -1126,15 +1108,14 @@ Get asset quantity transferred from payer to payee.
 
   * **state (dict):** Current payee/payer channel state.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns:
-        Quantity transferred in satoshis.
+  Quantity transferred in satoshis.
 
 
 ###mpc_payouts
 
-TODO add method prototype
+**mpc_payouts(state)**
 
 Find published commits and make payout transactions.
 
@@ -1142,18 +1123,14 @@ Find published commits and make payout transactions.
 
   * **state (dict):** Current payee channel state.
 
-    # TODO add object docs and fix return doc
+**Return:**
 
-    Returns:
-        [{
-            "payout_rawtx": unsigned_rawtx,
-            "commit_script": hex_encoded
-        }]
+  List of [micropayment sign payout object](#micropayment-sign-payout-object).
 
 
 ###mpc_recoverables
 
-TODO add method prototype
+**mpc_recoverables(state)**
 
 Find and make recoverable change, timeout and revoke transactions.
 
@@ -1161,25 +1138,9 @@ Find and make recoverable change, timeout and revoke transactions.
 
   * **state (dict):** Current payee channel state.
 
-    TODO add object docs and fix return doc
+**Return:**
 
-    Returns:
-        {
-            "change":[{
-                "change_rawtx": unsigned_rawtx,
-                "deposit_script": hex_encoded,
-                "spend_secret": hex_encoded
-            }],
-            "expire":[{
-                "expire_rawtx": unsigned_rawtx,
-                "deposit_script": hex_encoded
-            }],
-            "revoke":[{
-                "revoke_rawtx": unsigned_rawtx,
-                "commit_script": hex_encoded,
-                "revoke_secret": hex_encoded
-            }]
-        }
+  [micropayment Recoverables Result object](#micropayment-recoverables-result-object) with any found change, expire and revoke transactions to be signed and published.
 
 
 ##REST API Function Reference
@@ -1192,11 +1153,11 @@ The REST API documentation is hosted both on our webiste and on a new API docume
 
 Query table_name in the database using filters concatenated using filterop.
 
-URL format: 
+URL format:
 
 `/rest/<table_name>/get?<table_filters>&op=<filter_op>`
 
-Example query: 
+Example query:
 
 `/rest/sends/get?source=mn6q3dS2EnDUx3bmyWc6D4szJNVGtaR7zc&destination=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns&op=AND`
 
@@ -1212,7 +1173,7 @@ Example query:
 **Headers:**
   * **Accept (string, optional):** The format of return data. Can be either `application/json` or `application/xml`. Defaults to JSON.
 
-**Return:** 
+**Return:**
 
   Desired database rows from table_name sieved using filters.
 
@@ -1223,11 +1184,11 @@ Example query:
 
 Compose message_type transaction with transaction_params as data.
 
-URL format: 
+URL format:
 
 `/rest/<tx_type>/compose?<tx_data>`
 
-Example query: 
+Example query:
 
 `/rest/send/compose?source=mn6q3dS2EnDUx3bmyWc6D4szJNVGtaR7zc&destination=mtQheFaSfWELRB2MyMBaiWjdDm6ux9Ezns&asset=BTC&quantity=1`
 
@@ -1240,7 +1201,7 @@ Example query:
 **Headers:**
   * **Accept (string, optional):** The format of return data. Can be either `application/json` or `application/xml`. Defaults to JSON.
 
-**Return:** 
+**Return:**
 
   The hex data of composed transaction.
 
@@ -1274,11 +1235,11 @@ An object that describes a specific bet:
 * **wager_quantity** (*integer*): The [quantities](#quantities-and-balances) of XCP to wager
 * **counterwager_quantity** (*integer*): The minimum [quantities](#quantities-and-balances) of XCP to be wagered by the user to bet against the bet issuer, if the other party were to accept the whole thing
 * **wager_remaining** (*integer*): The quantity of XCP wagered that is remaining to bet on
-* **odds** (*float*): 
+* **odds** (*float*):
 * **target_value** (*float*): Target value for Equal/NotEqual bet
 * **leverage** (*integer*): Leverage, as a fraction of 5040
 * **expiration** (*integer*): The number of blocks for which the bet should be valid
-* **fee_multiplier** (*integer*): 
+* **fee_multiplier** (*integer*):
 * **validity** (*string*): Set to "valid" if a valid bet. Any other setting signifies an invalid/improper bet
 
 
@@ -1300,13 +1261,13 @@ An object that describes a specific occurance of two bets being matched (either 
 * **tx1_expiration** (*integer*): The number of blocks over which the matching bet was valid
 * **tx1_bet_type** (*string*): The type of the counter bet (0 for Bullish CFD (deprecated), 1 for Bearish CFD (deprecated), 2 for Equal, 3 for Not Equal)
 * **feed_address** (*string*): The address of the feed that the bets refer to
-* **initial_value** (*integer*): 
+* **initial_value** (*integer*):
 * **deadline** (*integer*): The timestamp at which the bet match was made, in Unix time.
-* **target_value** (*float*): Target value for Equal/NotEqual bet  
+* **target_value** (*float*): Target value for Equal/NotEqual bet
 * **leverage** (*integer*): Leverage, as a fraction of 5040
 * **forward_quantity** (*integer*): The [quantities](#quantities-and-balances) of XCP bet in the initial bet
 * **backward_quantity** (*integer*): The [quantities](#quantities-and-balances) of XCP bet in the matching bet
-* **fee_multiplier** (*integer*): 
+* **fee_multiplier** (*integer*):
 * **validity** (*string*): Set to "valid" if a valid order match. Any other setting signifies an invalid/improper order match
 
 
@@ -1319,7 +1280,7 @@ An object that describes a specific occurance of a broadcast event (i.e. creatin
 * **tx_hash** (*string*): The transaction hash
 * **block_index** (*integer*): The block index (block number in the block chain)
 * **source** (*string*): The address that made the broadcast
-* **timestamp** (*string*): The time the broadcast was made, in Unix time. 
+* **timestamp** (*string*): The time the broadcast was made, in Unix time.
 * **value** (*float*): The numerical value of the broadcast
 * **fee_multiplier** (*float*): How much of every bet on this feed should go to its operator; a fraction of 1, (i.e. .05 is five percent)
 * **text** (*string*): The textual component of the broadcast
@@ -1386,7 +1347,7 @@ An object that describes an issuance of dividends on a specific user defined ass
 * **tx_hash** (*string*): The transaction hash
 * **block_index** (*integer*): The block index (block number in the block chain)
 * **source** (*string*): The address that issued the dividend
-* **asset** (*string*): The [assets](#assets) that the dividends are being rewarded on 
+* **asset** (*string*): The [assets](#assets) that the dividends are being rewarded on
 * **quantity_per_unit** (*integer*): The [quantities](#quantities-and-balances) of XCP rewarded per whole unit of the asset
 * **validity** (*string*): Set to "valid" if a valid burn. Any other setting signifies an invalid/improper burn
 
@@ -1402,7 +1363,7 @@ An object that describes a specific occurance of a user defined asset being issu
 * **asset** (*string*): The [assets](#assets) being issued, or re-issued
 * **quantity** (*integer*): The [quantities](#quantities-and-balances) of the specified asset being issued
 * **divisible** (*boolean*): Whether or not the asset is divisible (must agree with previous issuances of the asset, if there are any)
-* **issuer** (*string*): 
+* **issuer** (*string*):
 * **transfer** (*boolean*): Whether or not this objects marks the transfer of ownership rights for the specified quantity of this asset
 * **validity** (*string*): Set to "valid" if a valid issuance. Any other setting signifies an invalid/improper issuance
 
@@ -1475,11 +1436,11 @@ to track state changes to the counterpartyd database on a block-by-block basis).
 * **block_index** (*integer*): The block index (block number in the block chain) this event occurred on
 * **category** (*string*): A string denoting the entity that the message relates to, e.g. "credits", "burns", "debits".
   The category matches the relevant table name in counterpartyd (see blocks.py for more info).
-* **command** (*string*): The operation done to the table noted in **category**. This is either "insert", or "update". 
+* **command** (*string*): The operation done to the table noted in **category**. This is either "insert", or "update".
 * **bindings** (*string*): A JSON-encoded object containing the message data. The properties in this object match the
   columns in the table referred to by **category**.
 
-  
+
 
 ###Bet Expiration Object
 
@@ -1522,6 +1483,102 @@ An object that describes the expiration of an order match.
 * **tx0_address** (*string*): The tx0 (first) address for the order match
 * **tx1_address** (*string*): The tx1 (second) address for the order match
 * **block_index** (*integer*): The block index (block number in the block chain) when this expiration occurred
+
+
+
+### Micropayment State Object
+
+An object that contains the minimum amount of required state for a micropayment channel.
+
+* **asset** (*string*): Channel asset being transferred.
+* **deposit_script** (*string*): Hex encoded deposit string.
+* **commits_requested** (*list*): List of hex encoded revoke secret hashes.
+* **commits_active** (*list*): List of [active commit objects](#micropayment-active-commit-object)
+* **commits_revoked** (*list*): List of [revoked commit objects](#micropayment-revoked-commit-object)
+
+
+
+### Micropayment Active Commit Object
+
+* **rawtx** (*string*): Hex encoded raw transaction.
+* **script** (*string*): Hex encoded P2SH script.
+
+
+
+### Micropayment Revoked Commit Object
+
+* **script** (*string*): Hex encoded P2SH script.
+* **revoke_secret** (*string*): Hex encoded revoke secret.
+
+
+
+### Micropayment Make Deposit Result Object
+
+* **state** (*object*): Updated payer [micropayment state object](#micropayment-state-object).
+* **topublish** (*string*): Unsigned deposit rawtx to be signed and published.
+* **deposit_script** (*string*): Hex encoded P2SH script needde to spend deposit funds.
+
+
+
+### Micropayment Request Commit Result Object
+
+* **state** (*object*): Updated payee [micropayment state object](#micropayment-state-object).
+* **quantity** (*integer*): Asset quantity for requested commit.
+* **revoke_secret_hash** (*string*): Revoke secret hash for requested commit.
+
+
+
+### Micropayment Create Commit Result Object
+
+* **state** (*object*): Updated payer [micropayment state object](#micropayment-state-object).
+* **commit_script** (*string*): Hex encoded P2SH script needde to spend commit funds.
+* **tosign** (*object*): [micropayment sign commit object](#micropayment-sign-commit-object).
+
+
+
+### Micropayment Sign Commit Object
+
+* **commit_rawtx** (*string*): Unsigned hex encoded commit raw transaction.
+* **deposit_script** (*string*): Hex encoded deposit P2SH needed to sign the commit raw transaction.
+
+
+
+### Micropayment Sign Payout Object
+
+* **payout_rawtx** (*string*): Unsigned hex encoded payout raw transaction.
+* **commit_script** (*string*): Hex encoded commit P2SH script needed to sign the payout raw transaction.
+
+
+
+### Micropayment Recoverables Result Object
+
+* **change** (*list*): List of [micropayment sign change objects](#micropayment-sign-change-object).
+* **expire** (*list*): List of [micropayment sign expire objects](#micropayment-sign-expire-object).
+* **revoke** (*list*): List of [micropayment sign revoke objects](#micropayment-sign-revoke-object).
+
+
+
+### Micropayment Sign Change Object
+
+* **change_rawtx** (*string*): Unsigned hex encoded change raw transaction.
+* **deposit_script** (*string*): Hex encoded deposit P2SH script needed to sign the change raw transaction.
+* **spend_secret** (*string*): Hex encoded spend secret needed to sign the change raw transaction.
+
+
+
+### Micropayment Sign Expire Object
+
+* **expire_rawtx** (*string*): Unsigned hex encoded expire raw transaction.
+* **deposit_script** (*string*): Hex encoded deposit P2SH script needed to sign the expire raw transaction.
+
+
+
+### Micropayment Sign Revoke Object
+
+* **revoke_rawtx** (*string*): Unsigned hex encoded revoke raw transaction.
+* **commit_script** (*string*): Hex encoded commit P2SH script needed to sign the revoke raw transaction.
+* **revoke_secret** (*string*): Hex encoded revoke secret needed to sign the revoke raw transaction.
+
 
 
 ##Status
