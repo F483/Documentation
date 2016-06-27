@@ -1,4 +1,4 @@
-# Trustless micropayment channels ᕕ( ᐛ )ᕗ
+# Trustless micropayment channels
 
 ## Protocol
 
