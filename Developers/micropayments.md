@@ -2,7 +2,7 @@
 
 ## Protocol
 
-![micropayments](micropayments.png)
+![Micropayment Protocol](micropayment_protocol.png)
 
 
 ### Deposit Transaction
@@ -122,3 +122,9 @@ script sig:
     <payer signature> <revoke secret> OP_FALSE
 
     # Example: c368ff17683f0720ea3e2c06bb0c70e3b0c381e7df5b6c10b28bfad5433a3b8c
+
+
+# Flowchart
+
+![Micropayment Flowchart](micropayment_flowchart.png)
+
