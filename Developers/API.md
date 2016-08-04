@@ -1049,9 +1049,9 @@ Add commit to channel state.
 
 
 
-###mpc_revoke_secret_hashes_above
+###mpc_revoke_hashes_until
 
-**mpc_revoke_secret_hashes_above(state, quantity)**
+**mpc_revoke_hashes_until(state, quantity)**
 
 Get revoke secret hashes for commits above the given quantity.
 
@@ -1059,6 +1059,7 @@ Get revoke secret hashes for commits above the given quantity.
 
   * **state (dict):** Current payee channel state.
   * **quantity (integer):** Return revoke secret hash if commit gt quantity.
+  * **surpass (boolean, default=False):** Allow revoking below quantity if between commits.
 
 **Return:**
 
@@ -1516,7 +1517,6 @@ An object that contains the minimum amount of required state for a micropayment 
 
 * **state** (*object*): Updated payer [micropayment state object](#micropayment-state-object).
 * **topublish** (*string*): Unsigned deposit rawtx to be signed and published.
-* **deposit_script** (*string*): Hex encoded P2SH script needde to spend deposit funds.
 
 
 
