@@ -1144,6 +1144,22 @@ Find and make recoverable change, timeout and revoke transactions.
   [micropayment Recoverables Result object](#micropayment-recoverables-result-object) with any found change, expire and revoke transactions to be signed and published.
 
 
+###mpc_deposit_expired
+
+**mpc_deposit_expired(state)**
+
+Returns true if the deposit has expired and the channel should no longer be used.
+
+**Parameters:**
+
+  * **state (dict):** Current channel state.
+  * **clearance (integer, default=0):** Minimum clearance confirms required.
+
+**Return:**
+
+  boolean
+
+
 ##REST API Function Reference
 
 The REST API documentation is hosted both on our webiste and on a new API documentation platform called apiary.io. This experimental documentation, complementary to the one in this document, is located [here](http://docs.counterpartylib.apiary.io/#).
