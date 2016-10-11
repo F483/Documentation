@@ -1008,7 +1008,7 @@ Request commit for given quantity and revoke secret hash.
 
 **Return:**
 
-  A [micropayment request commit result object](#micropayment-request-commit-result-object) with the updateds payee state and the given quantaty, revoke_secret_hash.
+  Updated [micropayment state object](#micropayment-state-object).
 
 
 
@@ -1533,14 +1533,6 @@ An object that contains the minimum amount of required state for a micropayment 
 
 * **state** (*object*): Updated payer [micropayment state object](#micropayment-state-object).
 * **topublish** (*string*): Unsigned deposit rawtx to be signed and published.
-
-
-
-### Micropayment Request Commit Result Object
-
-* **state** (*object*): Updated payee [micropayment state object](#micropayment-state-object).
-* **quantity** (*integer*): Asset quantity for requested commit.
-* **revoke_secret_hash** (*string*): Revoke secret hash for requested commit.
 
 
 
