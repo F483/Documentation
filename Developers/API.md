@@ -1016,7 +1016,7 @@ Request commit for given quantity and revoke secret hash.
 
 **mpc_create_commit(state, quantity, revoke_secret_hash, delay_time)**
 
-Create commit for given quantit, revoke secret hash and delay time.
+Create commit for given quantity, revoke secret hash and delay time.
 
 **Parameters:**
 
@@ -1144,11 +1144,11 @@ Find and make recoverable change, timeout and revoke transactions.
   [micropayment Recoverables Result object](#micropayment-recoverables-result-object) with any found change, expire and revoke transactions to be signed and published.
 
 
-###mpc_deposit_expired
+###mpc_deposit_ttl
 
-**mpc_deposit_expired(state)**
+**mpc_deposit_ttl(state)**
 
-Returns true if the deposit has expired and the channel should no longer be used.
+Get number of blocks until channel is expired and can no longer be used.
 
 **Parameters:**
 
@@ -1157,7 +1157,22 @@ Returns true if the deposit has expired and the channel should no longer be used
 
 **Return:**
 
-  boolean
+  Number of blocks remaining until deposit is expired.
+
+
+###mpc_published_commits
+
+**mpc_published_commits(state)**
+
+Get commits published on the blockchain, including unconfirmed.
+
+**Parameters:**
+
+  * **state (dict):** Current channel state.
+
+**Return:**
+
+  List of commit raw transactions.
 
 
 ##REST API Function Reference
@@ -1539,7 +1554,7 @@ An object that contains the minimum amount of required state for a micropayment 
 ### Micropayment Create Commit Result Object
 
 * **state** (*object*): Updated payer [micropayment state object](#micropayment-state-object).
-* **commit_script** (*string*): Hex encoded P2SH script needde to spend commit funds.
+* **commit_script** (*string*): Hex encoded P2SH script needed to spend commit funds.
 * **tosign** (*object*): [micropayment sign commit object](#micropayment-sign-commit-object).
 
 
